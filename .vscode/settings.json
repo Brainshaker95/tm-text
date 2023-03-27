@@ -1,0 +1,8 @@
+{
+  "eslint.options": {
+    "overrideConfigFile": "./conf/eslint.config.cjs"
+  },
+  "search.exclude": {
+    "yarn.lock": true
+  }
+}
