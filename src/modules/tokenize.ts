@@ -42,6 +42,8 @@ export const isLinkKind = (
   || kind === TOKEN.LINK_INTERNAL_WITH_PARAMS;
 
 export const isKindWithPrefix = (kind: TokenKind): kind is PrefixedTokenKind => !isHrefKind(kind)
+  && kind !== TOKEN.NEWLINE
+  && kind !== TOKEN.TAB
   && kind !== TOKEN.WORD;
 
 export const getKindByChar = (
@@ -140,6 +142,24 @@ export const tokenize = (input: string, options?: Partial<TokenizeOptions>): Tok
       }
 
       previousCharIsDollar = !previousCharIsDollar;
+
+      return;
+    }
+
+    if (char === '\u00A0' || char === '\v') {
+      previousCharIsDollar = false;
+
+      return;
+    }
+
+    if ('\f\n\r\t\u2028\u2029'.includes(char)) {
+      previousCharIsDollar = false;
+
+      if (char === '\t') {
+        tokens.add(TOKEN.TAB, ' ', index);
+      } else {
+        tokens.add(TOKEN.NEWLINE, ' ', index);
+      }
 
       return;
     }

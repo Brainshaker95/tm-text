@@ -10,7 +10,7 @@ import { tmText } from './index';
 import type { TmTextOptions } from './utils/options';
 import type { Syntax } from './utils/syntax';
 
-const MAIN_TEST_STRING = '$oLorem $wipsum $p[dolor]dolor$p $<$f00sit$> $samet';
+const MAIN_TEST_STRING = '$oLorem $wipsum $p[dolor]dolor$p $<$f00sit$> $samet\n\tconsectetur';
 
 type Suite = 'exported' | 'member';
 
@@ -54,6 +54,9 @@ const runTestsForSyntax = (suite: Suite, syntax: Syntax): void => {
           { kind: TOKEN.WORD, content: 'sit ', pos: { start: 39, end: 43 } },
           { kind: TOKEN.SHADOW, content: '$s', pos: { start: 45, end: 47 } },
           { kind: TOKEN.WORD, content: 'amet', pos: { start: 47, end: 51 } },
+          { kind: TOKEN.NEWLINE, content: ' ', pos: { start: 51, end: 52 } },
+          { kind: TOKEN.TAB, content: ' ', pos: { start: 52, end: 53 } },
+          { kind: TOKEN.WORD, content: 'consectetur', pos: { start: 53, end: 64 } },
         ]);
       } else if (syntax === SYNTAX.UNITED) {
         expect(tokens).toMatchObject([
@@ -65,6 +68,9 @@ const runTestsForSyntax = (suite: Suite, syntax: Syntax): void => {
           { kind: TOKEN.WORD, content: 'sit ', pos: { start: 39, end: 43 } },
           { kind: TOKEN.SHADOW, content: '$s', pos: { start: 45, end: 47 } },
           { kind: TOKEN.WORD, content: 'amet', pos: { start: 47, end: 51 } },
+          { kind: TOKEN.NEWLINE, content: ' ', pos: { start: 51, end: 52 } },
+          { kind: TOKEN.TAB, content: ' ', pos: { start: 52, end: 53 } },
+          { kind: TOKEN.WORD, content: 'consectetur', pos: { start: 53, end: 64 } },
         ]);
       } else if (syntax === SYNTAX.FOREVER) {
         expect(tokens).toMatchObject([
@@ -83,6 +89,9 @@ const runTestsForSyntax = (suite: Suite, syntax: Syntax): void => {
           { kind: TOKEN.WORD, content: 'sit ', pos: { start: 39, end: 43 } },
           { kind: TOKEN.SHADOW, content: '$s', pos: { start: 45, end: 47 } },
           { kind: TOKEN.WORD, content: 'amet', pos: { start: 47, end: 51 } },
+          { kind: TOKEN.NEWLINE, content: ' ', pos: { start: 51, end: 52 } },
+          { kind: TOKEN.TAB, content: ' ', pos: { start: 52, end: 53 } },
+          { kind: TOKEN.WORD, content: 'consectetur', pos: { start: 53, end: 64 } },
         ]);
       } else {
         expect(tokens).toMatchObject([
@@ -104,6 +113,9 @@ const runTestsForSyntax = (suite: Suite, syntax: Syntax): void => {
           { kind: TOKEN.WORD, content: ' ', pos: { start: 44, end: 45 } },
           { kind: TOKEN.SHADOW, content: '$s', pos: { start: 45, end: 47 } },
           { kind: TOKEN.WORD, content: 'amet', pos: { start: 47, end: 51 } },
+          { kind: TOKEN.NEWLINE, content: ' ', pos: { start: 51, end: 52 } },
+          { kind: TOKEN.TAB, content: ' ', pos: { start: 52, end: 53 } },
+          { kind: TOKEN.WORD, content: 'consectetur', pos: { start: 53, end: 64 } },
         ]);
       }
     });
@@ -114,9 +126,9 @@ const runTestsForSyntax = (suite: Suite, syntax: Syntax): void => {
       const value = suite === 'member' ? text.humanize() : humanize(MAIN_TEST_STRING, options);
 
       if (syntax === SYNTAX.CLASSIC || syntax === SYNTAX.UNITED) {
-        expect(value).toBe('Lorem ipsum [dolor]dolor sit amet');
+        expect(value).toBe('Lorem ipsum [dolor]dolor sit amet  consectetur');
       } else {
-        expect(value).toBe('Lorem ipsum dolor sit amet');
+        expect(value).toBe('Lorem ipsum dolor sit amet  consectetur');
       }
     });
   });
@@ -130,6 +142,12 @@ const runTestsForSyntax = (suite: Suite, syntax: Syntax): void => {
       expect(htmlify('$s$i ', options)).toBe('<span style="font-style:italic;text-shadow:1px 1px 1px #000"> </span>');
       expect(htmlify(' $s$i ', options)).toBe('<span> </span><span style="font-style:italic;text-shadow:1px 1px 1px #000"> </span>');
       expect(htmlify(' $s $i ', options)).toBe('<span> </span><span style="text-shadow:1px 1px 1px #000"> </span><span style="font-style:italic;text-shadow:1px 1px 1px #000"> </span>');
+    });
+
+    it('should handle special escape characters', () => {
+      expect(htmlify('\f\n\r\v\t\u00A0\u2028\u2029', options)).toBe('<span>&#13;&#13;&#13;&#9;&#13;&#13;</span>');
+      expect(htmlify('$f00Lorem$\n0f0ipsum', options)).toBe('<span style="color:#f00">Lorem&#13;0f0ipsum</span>');
+      expect(htmlify('$f00Lorem$0f0\nipsum', options)).toBe('<span style="color:#f00">Lorem</span><span style="color:#0f0">&#13;ipsum</span>');
     });
 
     it('should ignore unknown tokens', () => {

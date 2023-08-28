@@ -214,9 +214,17 @@ export const htmlify = (input: string | Token[], options?: Partial<HtmlifyOption
       throw new Error('The blockStates array should at least contain one object');
     }
 
-    if (token.kind === TOKEN.WORD) {
+    if (token.kind === TOKEN.WORD || token.kind === TOKEN.NEWLINE || token.kind === TOKEN.TAB) {
+      let { content } = token;
+
+      if (token.kind === TOKEN.NEWLINE) {
+        content = '\n';
+      } else if (token.kind === TOKEN.TAB) {
+        content = '\t';
+      }
+
       words.push({
-        content: token.content,
+        content,
         blockState: { ...currentBlockState },
       });
     } else if (token.kind === TOKEN.BLOCK_START) {
@@ -307,7 +315,9 @@ export const htmlify = (input: string | Token[], options?: Partial<HtmlifyOption
     });
   });
 
-  return html;
+  return html
+    .replaceAll('\n', '&#13;')
+    .replaceAll('\t', '&#9;');
 };
 
 export default htmlify;

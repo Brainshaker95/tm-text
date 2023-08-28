@@ -10,9 +10,11 @@ export const TOKEN = <const>{
   LINK_EXTERNAL: 'LINK_EXTERNAL',
   LINK_INTERNAL: 'LINK_INTERNAL',
   LINK_INTERNAL_WITH_PARAMS: 'LINK_INTERNAL_WITH_PARAMS',
+  NEWLINE: 'NEWLINE',
   RESET_ALL: 'RESET_ALL',
   RESET_COLOR: 'RESET_COLOR',
   SHADOW: 'SHADOW',
+  TAB: 'TAB',
   UPPERCASE: 'UPPERCASE',
   WIDTH_NARROW: 'WIDTH_NARROW',
   WIDTH_NORMAL: 'WIDTH_NORMAL',
@@ -50,10 +52,11 @@ export type WidthTokenKind = typeof TOKEN.WIDTH_NARROW
   | typeof TOKEN.WIDTH_WIDE;
 
 export type PrefixedTokenKind =
-  Exclude<TokenKind, HrefTokenKind | typeof TOKEN.WORD>;
+  Exclude<TokenKind, HrefTokenKind | typeof TOKEN.NEWLINE | typeof TOKEN.TAB | typeof TOKEN.WORD>;
 
-export type SingleCharTokenKind =
-  Exclude<TokenKind, typeof TOKEN.COLOR | typeof TOKEN.HREF_CONTENT | typeof TOKEN.WORD>;
+export type SingleCharTokenKind = Exclude<TokenKind,
+  typeof TOKEN.COLOR | typeof TOKEN.HREF_CONTENT | typeof TOKEN.NEWLINE | typeof TOKEN.TAB | typeof TOKEN.WORD
+>;
 
 export interface Token {
   /**
@@ -130,7 +133,9 @@ export const SYNTAX_CLASSIC = <const>[
   TOKEN.ITALIC,
   TOKEN.RESET_ALL,
   TOKEN.RESET_COLOR,
+  TOKEN.NEWLINE,
   TOKEN.SHADOW,
+  TOKEN.TAB,
   TOKEN.UPPERCASE,
   TOKEN.WIDTH_NARROW,
   TOKEN.WIDTH_NORMAL,
