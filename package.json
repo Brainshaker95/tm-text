@@ -1,6 +1,6 @@
 {
   "name": "tm-text",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Trackmania and Maniaplanet text parser and formatter",
   "author": "Patrick Rupp",
   "license": "MIT",
