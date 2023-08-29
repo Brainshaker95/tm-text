@@ -168,12 +168,12 @@ const runTestsForSyntax = (suite: Suite, syntax: Syntax): void => {
 
     it('should handle css tokens without end tags correctly', () => {
       expect(htmlify('$mLorem', options)).toBe('<span>Lorem</span>');
-      expect(htmlify('$nLorem', options)).toBe('<span style="display:inline-block;margin-right:-15.540px;transform:scaleX(0.64);transform-origin:0 100%">Lorem</span>');
-      expect(htmlify('$wLorem', options)).toBe('<span style="display:inline-block;margin-right:23.940px;transform:scaleX(1.57);transform-origin:0 100%">Lorem</span>');
+      expect(htmlify('$nLorem', options)).toBe('<span style="display:inline-block;margin-right:-15.780px;transform:scaleX(0.64);transform-origin:0 100%">Lorem</span>');
+      expect(htmlify('$wLorem', options)).toBe('<span style="display:inline-block;margin-right:24.310px;transform:scaleX(1.57);transform-origin:0 100%">Lorem</span>');
       expect(htmlify('$mLorem$m ipsum', options)).toBe('<span>Lorem ipsum</span>');
-      expect(htmlify('$nLorem$n ipsum', options)).toBe('<span style="display:inline-block;margin-right:-31.080px;transform:scaleX(0.64);transform-origin:0 100%">Lorem ipsum</span>');
-      expect(htmlify('$wLorem$w ipsum', options)).toBe('<span style="display:inline-block;margin-right:47.880px;transform:scaleX(1.57);transform-origin:0 100%">Lorem ipsum</span>');
-      expect(htmlify('$wLorem $mipsum $ndolor', options)).toBe('<span style="display:inline-block;margin-right:26.220px;transform:scaleX(1.57);transform-origin:0 100%">Lorem </span><span>ipsum </span><span style="display:inline-block;margin-right:-12.210px;transform:scaleX(0.64);transform-origin:0 100%">dolor</span>');
+      expect(htmlify('$nLorem$n ipsum', options)).toBe('<span style="display:inline-block;margin-right:-31.733px;transform:scaleX(0.64);transform-origin:0 100%">Lorem ipsum</span>');
+      expect(htmlify('$wLorem$w ipsum', options)).toBe('<span style="display:inline-block;margin-right:48.886px;transform:scaleX(1.57);transform-origin:0 100%">Lorem ipsum</span>');
+      expect(htmlify('$wLorem $mipsum $ndolor', options)).toBe('<span style="display:inline-block;margin-right:26.590px;transform:scaleX(1.57);transform-origin:0 100%">Lorem </span><span>ipsum </span><span style="display:inline-block;margin-right:-12.496px;transform:scaleX(0.64);transform-origin:0 100%">dolor</span>');
     });
 
     it('should handle css tokens with end tags correctly', () => {
