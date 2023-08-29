@@ -17,14 +17,14 @@ Trackmania and Maniaplanet text parser and formatter
 ## Table Of Contents
 
 <!-- NOTICE: all anchors must not include the emoji to work on github, the ❤️ some reason must be url encoded though -->
-* [👋 About The Project](#-about-the-project)
-* [🚀 Installation](#-installation)
-* [👀 Usage](#-usage)
-* [👍 Supported Tokens](#-supported-tokens)
-* [💻 Development](#-development)
-* [❤️ Contributing](#%EF%B8%8F-contributing)
-* [⭐ License](#-license)
-* [🌐 Acknowledgments](#-acknowledgments)
+- [👋 About The Project](#-about-the-project)
+- [🚀 Installation](#-installation)
+- [👀 Usage](#-usage)
+- [👍 Supported Tokens](#-supported-tokens)
+- [💻 Development](#-development)
+- [❤️ Contributing](#%EF%B8%8F-contributing)
+- [⭐ License](#-license)
+- [🌐 Acknowledgments](#-acknowledgments)
 
 <p align="right"><a href="#top" title="Back to top">&nbsp;&nbsp;&nbsp;⬆&nbsp;&nbsp;&nbsp;</a></p>
 
@@ -38,7 +38,8 @@ This project aims to provide a simple interface for parsing and formatting text 
 Given an input text of:  
 <samp>$f00R$fa2a$ff3i$0f0n$06fb$30fo$60fw</samp>  
 this library produces the following HTML output:  
-<span style="color: #ff0000;">R</span><span style="color: #ffaa22;">a</span><span style="color: #ffff33;">i</span><span style="color: #00ff00;">n</span><span style="color: #0066ff;">b</span><span style="color: #3300ff;">o</span><span style="color: #6600ff;">w</span>
+<span style="color: #ff0000;">R</span><span style="color: #ffaa22;">a</span><span style="color: #ffff33;">i</span><span style="color: #00ff00;">n</span><span style="color: #0066ff;">b</span><span style="color: #3300ff;">o</span><span style="color: #6600ff;">w</span>  
+(Note that Github strips the style attributes, take a look at the raw version of this readme to see the color codes)
 
 <p align="right"><a href="#top" title="Back to top">&nbsp;&nbsp;&nbsp;⬆&nbsp;&nbsp;&nbsp;</a></p>
 
@@ -143,9 +144,11 @@ console.log(blockify(text));
 |<samp>$&lt;</samp>|Opening block|
 |<samp>$&gt;</samp>|Closing block|
 |<samp>$$</samp>|Dollar character|
+|<samp>\n</samp>|Newline character|
+|<samp>\t</samp>|Tab character|
 
 Please note that some of the behavior regarding block tags in conjuction with link tags will not be accurately represented by this library.  
-See [these tests](./src/index.test.ts#L300) for a few examples of what this is referring to.
+See [these tests](./src/index.test.ts#L318) for a few examples of what this is referring to.
 
 <p align="right"><a href="#top" title="Back to top">&nbsp;&nbsp;&nbsp;⬆&nbsp;&nbsp;&nbsp;</a></p>
 
